@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const NewsAPI = require("newsapi")
+const NewsAPI = require("../utils/newsapi")
 const newsapi = new NewsAPI("9f7495f938b94d789d62351da0a01374")
 const router = Router()
 const Article = require("../models/Article")

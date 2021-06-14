@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"engines": {
 		"node": "14.x",
-		"npm": "6.x"
+		"npm": "7.x"
 	},
 	"scripts": {
 		"build": "npm install",
@@ -15,11 +15,12 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"core-js": "^3.14.0",
 		"dotenv": "^10.0.0",
 		"ejs": "^3.1.6",
 		"express": "^4.17.1",
 		"mongoose": "^5.12.13",
-		"newsapi": "^2.4.1",
+		"node-fetch": "^2.6.1",
 		"nodemon": "^2.0.7"
 	}
 }

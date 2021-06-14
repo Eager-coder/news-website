@@ -1,6 +1,5 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const NewsAPI = require("newsapi")
 const app = express()
 require("dotenv").config()
 app.set("view engine", "ejs")
