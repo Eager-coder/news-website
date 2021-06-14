@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SerikNews | Stay in touch with the world's most recent news</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/weather.css">
+  <link rel="stylesheet" href="../css/world-news.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav>
+    <a href="/news">SerikNews</a>
+  </nav>
+  <main>
+    <div class="main-container">
+      <section class="weather">
+        <%- include('./partials/weather'); %>
+      </section>
+      <section class="main-news">
+        <h1>
+          <%=article.title %>
+        </h1>
+        <div class="d-flex justify-content-between mb-4">
+          <a href="/news/?category=<%=article.category%>">Category: <span class="badge bg-primary">
+              <%=article.category %>
+            </span></a>
+          <span>
+            Created on <%= article.date%>
+          </span>
+        </div>
+        <div class="d-flex justify-content-between mb-4">
+          <div class="buttons">
+            <a class="btn btn-primary" href="/article/<%=article._id%>?mode=edit" role="button">Edit</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete article</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Do you really want to delete the article?
+                    <br>
+                    (this action is irreversible)
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id='delete-article' type="button" class="btn btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img
+          src="<%=article.imgUrl || `https://image.shutterstock.com/image-illustration/abstract-newspaper-background-original-3d-260nw-1529949344.jpg`%>"
+          style="width: 100%; height: auto;" alt="">
+        <p style="text-decoration: underline; font-size: 1.2rem;">
+          <i>
+            <%=article.topic %>
+          </i>
+        </p>
+        <p>
+          <%=article.description %>
+        </p>
+      </section>
+
+      <section class="world-news">
+
+
+      </section>
+    </div>
+  </main>
+
+  <script src="../js/weather.js">
+  </script>
+  <script>
+    const deleteBtn = document.querySelector('#delete-article')
+    deleteBtn.addEventListener('click', async (event) => {
+      try {
+        deleteBtn.disabled = true
+        await fetch('/article/delete/<%=article._id%>', { method: "DELETE" })
+        window.location.href = '/news'
+      } catch (error) {
+        console.log(error)
+      }
+
+    })
+
+  </script>
+</body>
+
+</html>

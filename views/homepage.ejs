@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SerikNews | Stay in touch with the world's most recent news</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/weather.css">
+  <link rel="stylesheet" href="./css/world-news.css">
+</head>
+
+<body>
+  <nav>
+    <a href="/news">SerikNews</a>
+  </nav>
+  <main>
+    <div class="main-container">
+      <section class="weather">
+        <%- include('./partials/weather'); %>
+      </section>
+      <section class="main-news">
+        <div class="d-flex justify-content-between mb-4">
+          <h1>Main news</h1>
+          <a class="btn btn-primary" href="/article/upload" role="button">Upload new</a>
+        </div>
+
+        <select onchange="location = this.value;" class="form-select mb-5" aria-label="Filter by category">
+          <option selected>Filter by category</option>
+          <option value="/news/?category=general">
+            General
+          </option>
+          <option value="/news/?category=sport">Sport</option>
+          <option value="/news/?category=entertainment">Entertainment
+          </option>
+          <option value="/news/?category=music">Music</option>
+          <option value="/news/?category=politics">Politics</option>
+        </select>
+        <div class="article-list">
+          <% articles.forEach(article=> { %>
+            <a href="/article/<%=article._id%>?mode=view" class="article-card">
+              <div class="d-flex justify-content-between">
+
+                <h2>
+                  <%= article.title%>
+                </h2>
+                <span>Category: <span class="badge bg-primary">
+                    <%=article.category %>
+                  </span></span>
+              </div>
+
+              <span>Uploaded on <%= article.date%></span>
+              <p>
+                <%= article.topic%>
+              </p>
+              <img src="<%= article.imgUrl || `
+            https://image.shutterstock.com/image-illustration/abstract-newspaper-background-original-3d-260nw-1529949344.jpg`
+            %>" alt="">
+            </a>
+            <% })%>
+        </div>
+
+      </section>
+      <section class="world-news">
+
+        <%- include('./partials/world-news', {worldNews}) %>
+
+      </section>
+    </div>
+  </main>
+  <script src="./js/weather.js"></script>
+</body>
+
+</html>
