@@ -1,0 +1,15 @@
+---
+application:
+  name: "news-website"
+  project: "random-project-076"
+  organization: "QoveryCommunity"
+databases:
+- type: "MONGODB"
+  name: "NyFirstDatabase"
+  version: "4.4"
+routers:
+- name: "main-news-website"
+  routes:
+  - application_name: "news-website"
+    paths:
+    - "/*"
